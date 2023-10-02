@@ -10,6 +10,8 @@ with mlflow.start_run(run_name="initial") as run:
     # Use the model
     mlflow.log_param("compression_type", "none")
     mlflow.log_metric("model_size", get_model_size(model))
+    mlflow.log_param("device", "cpu")
+    mlflow.log_param("model_name", "yolov8n")
 
     metrics = model.val(data="coco128.yaml")  # evaluate model performance on the validation set
     metrics = get_yolo_metrics(metrics)
