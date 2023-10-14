@@ -22,5 +22,7 @@
 | PTQ, float16         |  	 0.650       | 	   0.532 |  0.605	|  0.452	| 230 ms 	               | 12.08          |
 | Global pruning 0.05% | 0.632	   | 0.538	  | 0.606 	| 0.446 	| 255 ms 	               | 12.08          | 
 | Weight clustering    | 0.655 	   | 0.496	   | 0.591 	| 0.432 	| 260 ms                 | 12.02          |
+| ONNX    | 0.651 	   | 0.532	   | 0.606 	| 0.452 	| 271.8 ms                 | 12.23          |
+| OpenVINO    | 0.651 	   | 0.532	   | 0.606 	| 0.452	| 226.3 ms                 | 12.12         |
 
 Также все эксперименты заносятся сюда https://dagshub.com/PredelinaAsya/ModelCompression/experiments с помощью mlflow.
