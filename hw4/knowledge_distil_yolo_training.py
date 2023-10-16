@@ -81,8 +81,8 @@ class KnowledgeDistillationDetectionTraining(DetectionTrainer):
                 with torch.cuda.amp.autocast(self.amp):
                     batch = self.preprocess_batch(batch)
 
-                    logits_student = self.model(batch["img"])
-                    logits_teacher = self.teacher_model(batch["img"])
+                    logits_student = self.model(batch["img"])[0]
+                    logits_teacher = self.teacher_model(batch["img"])[0]
                     det_loss, self.loss_items = self.model.loss(batch=batch, preds=logits_student)
                     loss_kd = self.temperature ** 2 * self.loss_fct(
                         F.log_softmax(logits_student / self.temperature, dim=-1),
