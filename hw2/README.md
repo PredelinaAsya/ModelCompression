@@ -24,7 +24,11 @@
 
 Затем внутри созданного виртуального окружения осуществить запуск скрипта командой:
 
-```python3 pruning.py```
+```python3 gloabl_pruning.py```
+
+или
+
+```python3 local_pruning.py```
 
 ## Запуск в google colab
 
