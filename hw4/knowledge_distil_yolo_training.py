@@ -16,7 +16,8 @@ class KnowledgeDistillationDetectionTraining(DetectionTrainer):
     def __init__(self, *args, teacher_model: DetectionModel = YOLO("yolov8m.pt").model,
                  temperature: float = 2.0, alpha: float = 0.5, **kwargs):
         super().__init__(*args, **kwargs)
-        self.teacher_model = teacher_model
+        device = torch.device("cuda")
+        self.teacher_model = teacher_model.to(device).half()
         self.loss_fct = nn.KLDivLoss(reduction="batchmean")
         self.temperature = temperature
         self.alpha = alpha
@@ -80,10 +81,10 @@ class KnowledgeDistillationDetectionTraining(DetectionTrainer):
                 # Forward
                 with torch.cuda.amp.autocast(self.amp):
                     batch = self.preprocess_batch(batch)
-
-                    logits_student = self.model(batch["img"])[0]
+                    self.model.model[-1].training = False
+                    logits_student, preds = self.model(batch["img"])
                     logits_teacher = self.teacher_model(batch["img"])[0]
-                    det_loss, self.loss_items = self.model.loss(batch=batch, preds=logits_student)
+                    det_loss, self.loss_items = self.model.loss(batch=batch, preds=preds)
                     loss_kd = self.temperature ** 2 * self.loss_fct(
                         F.log_softmax(logits_student / self.temperature, dim=-1),
                         F.softmax(logits_teacher / self.temperature, dim=-1))
