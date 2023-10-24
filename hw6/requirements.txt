@@ -1,0 +1,10 @@
+torch==2.0.1
+torchvision==0.15.2
+transformers==4.34.1
+optimum==1.13.2
+torchmetrics==1.2.0
+Pillow==9.4.0
+datasets==2.14.6
+tqdm==4.66.1
+matplotlib==3.7.1
+matplotlib-inline==0.1.6
